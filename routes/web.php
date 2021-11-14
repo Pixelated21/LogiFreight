@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Proximity\Auth\RegisterController;
+use App\Http\Controllers\Auth\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('prox-homepage');
 
-Route::get('/login', function () {
-    return view('Prøxïmïtÿ.Auth.login');
-})->name('prox-login');
+Route::get('/testing',function (){
+   return view('Testing.testing');
+});
 
-Route::get('/register',[RegisterController::class,'index'])->name('prox-register');
-
-Route::post('/on-register',[RegisterController::class,'store'])->name('prox-on-register');
+require __DIR__.'/authentication.php';

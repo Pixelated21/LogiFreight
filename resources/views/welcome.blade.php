@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Proximity UI') }}</title>
 
     <!-- Styles -->
     <script src="{{asset('js/dark-mode.js')}}" defer></script>
@@ -21,11 +21,19 @@
 
             @auth
                 <a href="{{ url('/home') }}"
-                   class="no-underline  text-sm font-normal text-teal-800 dark:text-gray-200 uppercase">{{ __('Home') }}</a>
+                   class="no-underline  text-sm font-normal text-teal-800 dark:text-gray-200 transition hover:border-gray-500  border-b border-transparent duration-300 uppercase">{{ __('Home') }}</a>
+
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button
+                        type="submit"
+                       class="no-underline hover:text-red-600  text-sm font-normal text-teal-800 dark:text-gray-200 transition duration-300 uppercase">{{ __('Logout') }}</button>
+                </form>
+
             @else
-                <a href="{{ route('prox-login') }}"
+                <a href="{{ route('login') }}"
                    class="no-underline text-sm font-normal text-teal-800 dark:text-gray-200  transition hover:border-gray-500  border-b border-transparent duration-300  uppercase">{{ __('Login') }}</a>
-                <a href="{{ route('prox-register') }}"
+                <a href="{{ route('register') }}"
                    class="no-underline text-sm font-normal text-teal-800 dark:text-gray-200  transition hover:border-gray-500  border-b border-transparent duration-300  uppercase">{{ __('Register') }}</a>
             @endauth
         </div>
