@@ -1,0 +1,48 @@
+created:
+    - database/factories/RoleFactory.php
+    - database/factories/UserFactory.php
+    - database/factories/BillingFactory.php
+    - database/factories/PackageTypeFactory.php
+    - database/factories/AddressFactory.php
+    - database/factories/MemberFactory.php
+    - database/factories/CourierFactory.php
+    - database/factories/AlertFactory.php
+    - database/factories/PackageFactory.php
+    - database/factories/TransitDetailsFactory.php
+    - database/factories/MemberInvoiceFactory.php
+    - database/migrations/2021_11_25_155027_create_roles_table.php
+    - database/migrations/2021_11_25_155028_create_users_table.php
+    - database/migrations/2021_11_25_155029_create_billings_table.php
+    - database/migrations/2021_11_25_155030_create_package_types_table.php
+    - database/migrations/2021_11_25_155031_create_addresses_table.php
+    - database/migrations/2021_11_25_155032_create_members_table.php
+    - database/migrations/2021_11_25_155033_create_couriers_table.php
+    - database/migrations/2021_11_25_155034_create_alerts_table.php
+    - database/migrations/2021_11_25_155035_create_packages_table.php
+    - database/migrations/2021_11_25_155036_create_transit_details_table.php
+    - database/migrations/2021_11_25_155037_create_member_invoices_table.php
+    - app/Models/Role.php
+    - app/Models/User.php
+    - app/Models/Billing.php
+    - app/Models/PackageType.php
+    - app/Models/Address.php
+    - app/Models/Member.php
+    - app/Models/Courier.php
+    - app/Models/Alert.php
+    - app/Models/Package.php
+    - app/Models/TransitDetails.php
+    - app/Models/MemberInvoice.php
+models:
+    role: { role: string }
+    userInfo: { user_id: 'biginteger unsigned', fname: string, lname: string, salutation: string, dob: string }
+    Role: { role: string, relationships: { hasMany: user } }
+    User: { role_id: 'id foreign', status: 'integer default:1', email: 'string unique', password: string, relationships: { hasOne: member } }
+    Billing: { basic_rate: float, handling_fee: float, custom_duties: float }
+    PackageType: { type: string }
+    Address: { line1: string, line2: string, city: string, zip_code: string, country: string }
+    Member: { user_id: 'id foreign', address_id: 'id foreign', name: string, trn: 'string unique', phone_nbr: 'string unique', pickup_location: string, account_number: 'string unique', relationships: { hasMany: 'package,alert,member_invoice' } }
+    Courier: { address_id: 'id foreign', name: 'string unique', details: string, relationships: { hasMany: 'alert,package' } }
+    Alert: { member_id: 'id foreign', courier_id: 'id foreign', tracking_nbr: 'string default', package_value: integer, desc: longText, status: integer, softdeletes: softDeletes }
+    Package: { package_type_id: 'id foreign', member_id: 'id foreign', courier_id: 'id foreign', courier_tracking_number: 'string unique', weight: float, internal_tracking_nbr: 'string unique', estimated_cost: float, relationships: { hasMany: transit_details, hasOne: member_invoice } }
+    TransitDetails: { package_id: 'id foreign', status: string }
+    MemberInvoice: { member_id: 'id foreign', package_id: 'id foreign', total: integer }

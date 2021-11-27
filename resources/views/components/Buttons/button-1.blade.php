@@ -18,9 +18,11 @@
         type="{{$type}}">
 
     <div class="flex items-center justify-center gap-5">
+        @if($spinner)
             <div class="flex justify-center items-center">
                 {{$spinner}}
             </div>
+        @endif
 
         <div class="flex justify-center items-center">
             {{$title}}

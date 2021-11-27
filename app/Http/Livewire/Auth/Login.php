@@ -24,6 +24,9 @@ class Login extends Component
 
     public function authenticate()
     {
+//        dd($this->email);
+//        dd($this->password);
+
         sleep(1);
         $this->validate();
 
@@ -35,27 +38,27 @@ class Login extends Component
                 sleep(2);
 
                 $this->dispatchBrowserEvent('alert');
-                session()->put('alertType','success');
-                session()->put('alertTitle','You Will Be Redirected Shortly');
+                session()->put('alertType', 'success');
+                session()->put('alertTitle', 'You Will Be Redirected Shortly');
 
                 sleep(1);
 
-                if (Auth::user()->role->role === 'admin') {
+                if (Auth::user()->role->role === 'Admin') {
                     return redirect()->route('prox-homepage');
                 }
-                if (Auth::user()->role->role === 'user') {
+                if (Auth::user()->role->role === 'Member') {
                     return redirect()->route('prox-homepage');
                 }
             }
             $this->dispatchBrowserEvent('alert');
-            session()->put('alertType','error');
-            session()->put('alertTitle','Your Account Has Been Disabled');
+            session()->put('alertType', 'error');
+            session()->put('alertTitle', 'Your Account Has Been Disabled');
 
 
         } else {
             $this->dispatchBrowserEvent('alert');
-            session()->put('alertType','info');
-            session()->put('alertTitle','Authentication Failed');
+            session()->put('alertType', 'info');
+            session()->put('alertTitle', 'Authentication Failed');
 
         }
 

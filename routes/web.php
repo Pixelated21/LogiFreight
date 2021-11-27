@@ -18,8 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 })->name('prox-homepage');
 
-Route::get('/testing',function (){
-   return view('Testing.testing');
+
+Route::get('/member/dashboard',function (){
+   return view('Member.dashboard');
+});
+
+Route::get('/admin/dashboard',function (){
+    return view('Admin.dashboard');
 });
 
 require __DIR__.'/authentication.php';

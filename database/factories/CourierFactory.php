@@ -2,20 +2,19 @@
 
 namespace Database\Factories;
 
-use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\Address;
+use App\Models\Courier;
 
-class UserFactory extends Factory
+class CourierFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Courier::class;
 
     /**
      * Define the model's default state.
@@ -25,10 +24,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'role_id' => Role::all()->random()->id,
-            'status' => $this->faker->numberBetween(0, 1),
-            'email' => $this->faker->unique->safeEmail,
-            'password' => Hash::make('password'),
+            'address_id' => Address::factory(),
+            'name' => $this->faker->name,
+            'details' => $this->faker->word,
         ];
     }
 }

@@ -27,7 +27,9 @@
 
                     <thead>
 
-                    {{$thead}}
+                    <x-Table.table-row>
+                        {{$thead}}
+                    </x-Table.table-row>
 
                     </thead>
 

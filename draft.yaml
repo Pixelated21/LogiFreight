@@ -1,0 +1,82 @@
+models:
+
+  Role:
+    role: string
+    relationships:
+      hasMany: user
+
+  User:
+    role_id: id foreign
+    status: integer default:1
+    email: string unique
+    password: string
+    relationships:
+      hasOne: member
+
+  Billing:
+    basic_rate: float
+    handling_fee: float
+    custom_duties: float
+
+  PackageType:
+    type: string
+
+  Address:
+    line1: string
+    line2: string
+    city: string
+    zip_code: string
+    country: string
+
+  Member:
+    user_id: id foreign
+    address_id: id foreign
+    name: string
+    trn: string unique
+    phone_nbr: string unique
+    pickup_location: string
+    account_number: string unique
+    relationships:
+      hasMany: package,alert,member_invoice
+
+
+  Courier:
+    address_id: id foreign
+    name: string unique
+    details: string
+    relationships:
+      hasMany: alert,package
+
+  Alert:
+    member_id: id foreign
+    courier_id: id foreign
+    tracking_nbr: integer default
+    package_value: integer
+    desc: longText
+    status: integer default:1
+    softDeletes
+
+  Package:
+    package_type_id: id foreign
+    member_id: id foreign
+    courier_id: id foreign
+    courier_tracking_number: string unique
+    weight: float
+    internal_tracking_nbr: string unique
+    estimated_cost: float
+    relationships:
+      hasMany: transit_details
+      hasOne: member_invoice
+
+
+  TransitDetails:
+    package_id: id foreign
+    status: string
+
+  MemberInvoice:
+    member_id: id foreign
+    package_id: id foreign
+    total: integer
+
+controllers:
+  # ...

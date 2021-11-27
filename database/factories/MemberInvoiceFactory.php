@@ -2,20 +2,20 @@
 
 namespace Database\Factories;
 
-use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\Member;
+use App\Models\MemberInvoice;
+use App\Models\Package;
 
-class UserFactory extends Factory
+class MemberInvoiceFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = MemberInvoice::class;
 
     /**
      * Define the model's default state.
@@ -25,10 +25,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'role_id' => Role::all()->random()->id,
-            'status' => $this->faker->numberBetween(0, 1),
-            'email' => $this->faker->unique->safeEmail,
-            'password' => Hash::make('password'),
+            'member_id' => Member::factory(),
+            'package_id' => Package::factory(),
+            'total' => $this->faker->numberBetween(-10000, 10000),
         ];
     }
 }
